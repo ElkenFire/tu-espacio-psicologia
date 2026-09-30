@@ -254,4 +254,66 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-});
+
+    // =========================================
+    // --- G. MODAL DINÁMICO DE SERVICIOS (NUEVO) ---
+    // =========================================
+    const serviceTriggers = document.querySelectorAll('.service-trigger');
+    const serviceModal = document.getElementById('serviceModal');
+    const serviceModalTitle = document.getElementById('serviceModalTitle');
+    const serviceModalDesc = document.getElementById('serviceModalDesc');
+    const serviceModalClose = serviceModal ? serviceModal.querySelector('.modal-close') : null;
+
+    // Función para abrir el modal con los datos de la tarjeta
+    serviceTriggers.forEach(card => {
+        card.addEventListener('click', () => {
+            // 1. Obtener datos de la tarjeta clickeada
+            const title = card.getAttribute('data-title');
+            const desc = card.getAttribute('data-desc');
+            
+            // 2. Inyectar datos en el modal
+            if (serviceModalTitle) serviceModalTitle.textContent = title;
+            if (serviceModalDesc) serviceModalDesc.textContent = desc;
+            
+            // 3. Actualizar el enlace de WhatsApp con el tema específico
+            const waButton = serviceModal.querySelector('.btn-primary');
+            if (waButton) {
+                // ⚠️ CAMBIA ESTE NÚMERO POR EL REAL
+                const phone = "56912345678"; 
+                const waText = `Hola, me interesa agendar una sesión sobre: ${title}`;
+                waButton.href = `https://wa.me/${phone}?text=${encodeURIComponent(waText)}`;
+            }
+
+            // 4. Mostrar el modal y bloquear scroll
+            if (serviceModal) {
+                serviceModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+
+    // Funciones para cerrar el modal de servicios
+    if (serviceModalClose && serviceModal) {
+        serviceModalClose.addEventListener('click', () => {
+            serviceModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+
+    if (serviceModal) {
+        serviceModal.addEventListener('click', (e) => {
+            if (e.target === serviceModal) {
+                serviceModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && serviceModal && serviceModal.classList.contains('active')) {
+            serviceModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+}); // <-- FIN DEL DOMContentLoaded
