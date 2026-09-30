@@ -61,7 +61,7 @@ body {
 
 .btn-primary {
     background-color: var(--color-primary);
-    color: var(--color-text-main); /* Texto oscuro sobre amarillo para mejor lectura */
+    color: var(--color-text-main);
 }
 
 .btn-primary:hover {
@@ -228,7 +228,7 @@ body {
 }
 
 .text-purple {
-    color: var(--color-primary-hover); /* Clase heredada, ahora es amarillo dorado */
+    color: var(--color-primary-hover);
 }
 
 .hero-description {
@@ -608,24 +608,19 @@ body {
     line-height: 1.2;
 }
 
-/* Contenedor del carrusel */
 .testimonial-carousel {
     position: relative;
 }
 
-/* Tarjetas de testimonio */
 .testimonial-card {
     background-color: var(--color-white);
     border: 1px solid #F0E6C8;
     border-radius: 16px;
     padding: 40px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    
-    /* Oculto por defecto */
     display: none;
 }
 
-/* Solo el activo se muestra */
 .testimonial-card.active {
     display: block;
 }
@@ -696,7 +691,6 @@ body {
     color: white;
 }
 
-/* Responsive */
 @media (max-width: 992px) {
     .testimonials-container {
         grid-template-columns: 1fr;
@@ -780,15 +774,6 @@ body {
     color: var(--color-text-main); 
 }
 
-.btn-logout {
-    background: none; 
-    border: none; 
-    color: #dc3545;
-    cursor: pointer; 
-    font-size: 0.9rem; 
-    text-decoration: underline;
-}
-
 #reviewForm { 
     max-width: 600px; 
     margin: 0 auto 50px auto; 
@@ -823,6 +808,12 @@ body {
     max-width: 1000px;
     margin: 0 auto;
     text-align: left;
+}
+
+.empty-message {
+    text-align: center;
+    color: var(--color-text-light);
+    grid-column: 1 / -1;
 }
 
 .review-card {
@@ -865,13 +856,12 @@ body {
     margin: 0; 
 }
 
-
 /* =========================================
-   LLAMADO A LA ACCIÓN (CTA) - Con imagen de fondo
+   LLAMADO A LA ACCIÓN (CTA)
    ========================================= */
 .cta {
     background: linear-gradient(rgba(254, 253, 245, 0.75), rgba(254, 253, 245, 0.88)), 
-                url('../img/cta-bg.jpg'); /* Cambia a .png si tu archivo es PNG */
+                url('../img/cta-bg.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -965,7 +955,9 @@ body {
     color: var(--color-primary-hover);
 }
 
-/* Esto ya debería estar en tu CSS, solo verifica que exista */
+/* =========================================
+   MODALES (CONTACTO Y SERVICIOS)
+   ========================================= */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -1021,9 +1013,89 @@ body {
     color: var(--color-primary-hover);
 }
 
-/* Asegurar que el cursor sea de mano en las tarjetas de servicio */
+/* ESTILOS INTERNOS DEL MODAL (Aquí estaba el problema) */
+.modal-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.modal-header h2 {
+    font-size: 2rem;
+    color: var(--color-text-main);
+    margin-bottom: 10px;
+}
+
+.modal-header p {
+    color: var(--color-text-light);
+    font-size: 1rem;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background-color: var(--color-bg-light);
+    border-radius: 12px;
+    text-decoration: none; /* ← ESTO QUITA EL SUBRAYADO AZUL */
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.contact-option:hover {
+    background-color: var(--color-bg-pastel);
+    border-color: var(--color-primary);
+    transform: translateX(5px);
+}
+
+.contact-icon {
+    width: 45px;
+    height: 45px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-white);
+    flex-shrink: 0;
+}
+
+.contact-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-info strong {
+    color: var(--color-text-main);
+    font-size: 1rem;
+    margin-bottom: 3px;
+}
+
+.contact-info span {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+}
+
+.contact-arrow {
+    color: var(--color-text-light);
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.contact-option:hover .contact-arrow {
+    transform: translateX(5px);
+    color: var(--color-primary-hover);
+}
+
 .service-card {
-    cursor: pointer; /* Esto ya debería estar, pero verifícalo */
+    cursor: pointer;
 }
 
 /* =========================================
@@ -1055,11 +1127,7 @@ body {
         justify-content: center;
     }
 }
-.empty-message {
-    text-align: center;
-    color: var(--color-text-light);
-    grid-column: 1 / -1; /* Para que ocupe todo el ancho del grid */
-}
+
 @media (max-width: 576px) {
     .testimonials, .cta, .user-reviews {
         padding: 60px 0;
